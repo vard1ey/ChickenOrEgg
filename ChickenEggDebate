@@ -1,0 +1,28 @@
+public class ChickenEggDebate {
+
+    // Общий ресурс для синхронизации
+    public static String lastWord;
+    private static final Object lock = new Object();
+
+    static class ChickenThread extends Thread {
+        @Override
+        public void run() {
+            synchronized (lock) {
+                System.out.println("Курица");
+                lastWord = "Курица";
+                lock.notify();
+            }
+        }
+    }
+
+    static class EggThread extends Thread {
+        @Override
+        public void run() {
+            synchronized (lock) {
+                System.out.println("Яйцо");
+                lastWord = "Яйцо";
+                lock.notify();
+            }
+        }
+    }
+}
