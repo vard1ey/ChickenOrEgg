@@ -1,0 +1,29 @@
+public static void main(String[] args) {
+    System.out.println("Начало спора");
+
+    ChickenEggDebate.ChickenThread chicken = new ChickenEggDebate.ChickenThread();
+    ChickenEggDebate.EggThread egg = new ChickenEggDebate.EggThread();
+
+    chicken.start();
+    egg.start();
+
+    try {
+        chicken.join();
+        egg.join();
+    } catch (InterruptedException e) {
+        e.printStackTrace();
+    }
+
+    System.out.println("Состояние потоков после выполнения");
+    System.out.println("Поток Курица активен: " + chicken.isAlive());
+    System.out.println("Поток Яйцо активен: " + egg.isAlive());
+
+    System.out.println("\nРезультат спора");
+    System.out.println("Последнее слово было за: " + ChickenEggDebate.lastWord);
+
+    if (ChickenEggDebate.lastWord.equals("Курица")) {
+        System.out.println("Победитель: Курица");
+    } else if (ChickenEggDebate.lastWord.equals("Яйцо")) {
+        System.out.println("Победитель: Яйцо");
+    }
+}
